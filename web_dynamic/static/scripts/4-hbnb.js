@@ -17,14 +17,14 @@ inputs.forEach(input => {
 show()
 function show() {
 
-  const fetchRes = fetch("http://127.0.0.1:5001/api/v1/status/") //127.0.0.1 because of ubuntu-windows compatibility
+  const fetchRes = fetch("http://0.0.0.0:5001/api/v1/status/")
   fetchRes.then(res => res.json().then(d => {
     if (d.status != 'OK') {
       return
     }
     document.getElementById('api_status').classList.add('available')
   
-    const fetchPlace = fetch("http://127.0.0.1:5001/api/v1/places_search/", {
+    const fetchPlace = fetch("http://0.0.0.0:5001/api/v1/places_search/", {
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function show() {
         newPlace.children[1].children[2].innerText = place.number_bathrooms + ' '
         newPlace.children[1].children[2].innerText += place.max_bathrooms > 1 ? 'Bathrooms' : 'Bathroom';
         
-        const fetchUser = fetch("http://127.0.0.1:5001/api/v1/users/" + place.user_id)
+        const fetchUser = fetch("http://0.0.0.0:5001/api/v1/users/" + place.user_id)
         fetchUser.then(res => res.json().then(user => {
           newPlace.children[2].innerHTML = '<b>Owner:</b> ' +user.first_name + ' ' +  user.last_name
         }));
